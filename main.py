@@ -1,6 +1,6 @@
 import sys
 
-from helpers import get_data
+from helpers import get_data, plot
 
 
 def main():
@@ -17,7 +17,7 @@ def main():
         Re = sys.argv[3]
 
         # Call the get_data function with validated inputs
-        get_data(airfoil_digits, analysis_type, Re)
+        print(get_data(airfoil_digits, analysis_type, Re))
     else:
         print("Error: Expected 3 arguments - airfoil_name (str), analysis_type (str), Re (int)")
 

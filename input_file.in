@@ -1,0 +1,10 @@
+NACA 0015
+OPER
+Visc 165000 
+PACC
+polar data/NACA_0015.txt
+
+aseq 0 20 1
+
+
+quit

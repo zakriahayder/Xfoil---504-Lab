@@ -18,7 +18,7 @@ def get_data(airfoil_digits, analysis_type, Re):
     if not os.path.exists("polar data"):
         os.makedirs("polar data")
 
-    airfoil_path = f"polar data/NACA_{airfoil_digits}.txt"
+    airfoil_path = f"polar data/NACA_{airfoil_digits}_inviscid.txt"
     input_file = f"input_file.in"
 
     if os.path.exists(airfoil_path):
@@ -27,9 +27,9 @@ def get_data(airfoil_digits, analysis_type, Re):
     with open(input_file, "w") as f:
         f.write(f"NACA {airfoil_digits}\n")
         f.write(f"OPER\n")
-        # An extra command must be run for viscous analysis
         if analysis_type == "v":
             f.write(f"Visc {int(Re)} \n")
+            airfoil_path = f"polar data/NACA_{airfoil_digits}_viscid.txt"
         f.write("PACC\n")
         f.write(f"{airfoil_path}\n\n")
         f.write(f"aseq {alfa_i} {alfa_f} {alfa_s}\n")
@@ -38,22 +38,26 @@ def get_data(airfoil_digits, analysis_type, Re):
 
     subprocess.call("xfoil.exe < input_file.in", shell=True)
 
+    return airfoil_path
 
-def plot(file_name):
+
+def plot(file_name, analysis_type):
+
     df = pd.read_csv(file_name, delim_whitespace=True, skiprows=12,
                      names=["alfa", "CL", "CD", "CDp", "CM", "TopX", "BottomX"])
 
-    # plt.plot(df["alfa"], df["CL"], marker='o')
-    # plt.xlabel("Alfa")
-    # plt.ylabel("CL")
-    # plt.title("CL vs alfa - NACA 0015")
-    # plt.show()
+    analysis_title = "viscid" if analysis_type == "v" else "inviscid"
+
+    plt.plot(df["alfa"], df["CL"], marker='o')
+    plt.xlabel("Alfa")
+    plt.ylabel("CL")
+    plt.title(f"CL vs alfa - NACA 0015 ({analysis_title})")
+    plt.tight_layout()
+    plt.show()
 
     plt.plot(df["CD"], df["CL"], marker="o")
     plt.xlabel("CD")
     plt.ylabel("CL")
-    plt.title("CD vs CL - NACA 0015")
+    plt.title(f"CD vs CL - NACA 0015 ({analysis_title})")
+    plt.tight_layout()
     plt.show()
-
-
-plot("polar data/NACA_0015.txt")

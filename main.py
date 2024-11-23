@@ -16,8 +16,7 @@ def main():
 
         Re = sys.argv[3]
 
-        # Call the get_data function with validated inputs
-        print(get_data(airfoil_digits, analysis_type, Re))
+        plot(get_data(airfoil_digits, analysis_type, Re), analysis_type)
     else:
         print("Error: Expected 3 arguments - airfoil_name (str), analysis_type (str), Re (int)")
 

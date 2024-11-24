@@ -14,7 +14,7 @@ alfa_s = 1
 
 
 def get_data(airfoil_digits, analysis_type, Re = None):
-
+    #test
     if not os.path.exists("polar data"):
         os.makedirs("polar data")
 

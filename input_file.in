@@ -1,8 +1,7 @@
 NACA 0015
 OPER
-Visc 20000 
 PACC
-polar data/NACA_0015_viscid.txt
+polar data/NACA_0015_inviscid.txt
 
 aseq 0 20 1
 

@@ -17,8 +17,9 @@ def main():
         if len(sys.argv) == 4:
             Re = sys.argv[3]
             plot(get_data(airfoil_digits, analysis_type, Re), analysis_type)
-
-        plot(get_data(airfoil_digits, analysis_type), analysis_type)
+            
+        elif len(sys.argv) == 3:
+            plot(get_data(airfoil_digits, analysis_type), analysis_type)
     else:
         print("Error: Expected 3 arguments - airfoil_name (str), analysis_type (str), Re (int)")
 
